@@ -11,6 +11,7 @@
     password: "{{ mysql_user_password }}"
     priv: '*.*:ALL,GRANT'
     state: present
+    config_file: "{{ mysql_login_config_file }}"
   when: mysql_user_name != mysql_root_username
 
 # Has to be after the password assignment, for idempotency.
@@ -71,10 +72,14 @@
 
 - name: Remove anonymous MySQL users.
   mysql_user:
-     name: ""
-     host: "{{ item }}"
-     state: absent
+    name: ""
+    host: "{{ item }}"
+    state: absent
+    config_file: "{{ mysql_login_config_file }}"
   with_items: "{{ mysql_anonymous_hosts.stdout_lines|default([]) }}"
 
 - name: Remove MySQL test database.
-  mysql_db: "name='test' state=absent"
+  mysql_db:
+    name: 'test'
+    state: absent
+    config_file: "{{ mysql_login_config_file }}"

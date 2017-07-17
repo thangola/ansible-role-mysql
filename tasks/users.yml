@@ -7,5 +7,6 @@
     priv: "{{ item.priv | default('*.*:USAGE') }}"
     state: "{{ item.state | default('present') }}"
     append_privs: "{{ item.append_privs | default('no') }}"
+    config_file: "{{ mysql_login_config_file }}"
   with_items: "{{ mysql_users }}"
   no_log: true

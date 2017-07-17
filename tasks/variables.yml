@@ -55,9 +55,13 @@
 - name: Define mysql_socket.
   set_fact:
     mysql_socket: "{{ __mysql_socket }}"
-  when: mysql_socket is not defined
-
+ 
 - name: Define mysql_supports_innodb_large_prefix.
   set_fact:
     mysql_supports_innodb_large_prefix: "{{ __mysql_supports_innodb_large_prefix }}"
-  when: mysql_supports_innodb_large_prefix is not defined
+  when: mysql_supports_innodb_large_prefix is not defined when: mysql_socket is not defined
+
+- name: Define mysql_login_config_file.
+  set_fact:
+    mysql_login_config_file: "{{ __mysql_login_config_file }}"
+  when: mysql_login_config_file is not defined
